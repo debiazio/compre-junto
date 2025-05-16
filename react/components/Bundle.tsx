@@ -1,8 +1,8 @@
 import React from "react";
 
 
-function Bunndle() {
+function Bundle() {
   return (<div>Hey</div>)
 }
 
-export default Bunndle
+export default Bundle
