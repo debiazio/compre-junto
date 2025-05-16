@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.marqueeContainer {
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #494a4d;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  color: white;
+  position: relative;
+
+}
+
+.marqueeContent {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scrollText 95s linear infinite;
+  user-select: none;
+
+  font-size: 10px!important;
+  padding-left: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+}
+
+@keyframes scrollText {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.highlight {
+  color: #FFD700; /* Amarelo (padrão gold) */
+}
