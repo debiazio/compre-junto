@@ -3961,9 +3961,9 @@ lz-string@^1.4.4:
   resolved "https://registry.yarnpkg.com/lz-string/-/lz-string-1.4.4.tgz#c0d8eaf36059f705796e1e344811cf4c498d3a26"
   integrity sha512-0ckx7ZHRPqb0oUm8zNr+90mtf9DQB60H1wMCjBtfi62Kl3a7JbHob6gA2bC+xRvZoOL+1hzUK8jeuEIQE8svEQ==
 
-"madumfm2.bundle@https://dev2madu--madumfm2.myvtex.com/_v/private/typings/linked/v1/madumfm2.bundle@0.0.6+build1747418725/public/@types/madumfm2.bundle":
-  version "0.0.6"
-  resolved "https://dev2madu--madumfm2.myvtex.com/_v/private/typings/linked/v1/madumfm2.bundle@0.0.6+build1747418725/public/@types/madumfm2.bundle#e17815d34f57e31d4cfcea50dd3c419aa206d1da"
+"madumfm2.bundle@https://dev2madu--madumfm2.myvtex.com/_v/private/typings/linked/v1/madumfm2.bundle@0.0.7+build1748007424/public/@types/madumfm2.bundle":
+  version "0.0.7"
+  resolved "https://dev2madu--madumfm2.myvtex.com/_v/private/typings/linked/v1/madumfm2.bundle@0.0.7+build1748007424/public/@types/madumfm2.bundle#a3ce78b7eb6af310c507872d0beeac6ba56f1275"
 
 make-dir@^3.0.0:
   version "3.1.0"
@@ -5348,6 +5348,10 @@ verror@1.10.0:
 "vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.136.1/public/@types/vtex.render-runtime":
   version "8.136.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.136.1/public/@types/vtex.render-runtime#f163acbdb0fcc9be2065a34eb4fc797093f6d0ce"
+
+"vtex.search-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.68.1/public/@types/vtex.search-graphql":
+  version "0.68.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.68.1/public/@types/vtex.search-graphql#80f9f29f0791cdc1370553901f9959ad267b0f4f"
 
 w3c-hr-time@^1.0.1:
   version "1.0.2"
