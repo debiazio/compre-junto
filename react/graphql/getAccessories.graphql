@@ -6,6 +6,9 @@ query getAccessories($productId: ID!) {
     productName
     items {
       itemId
+      images {
+        imageUrl
+      }
     }
   }
 }

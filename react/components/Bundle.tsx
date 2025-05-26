@@ -13,12 +13,14 @@ const CSS_HANDLES = [
 
 interface Accessories {
   productName: string
-  items: itemId[]
+  items: {
+    itemId: string
+    images: {
+      imageUrl: string
+    }[]
+  }[]
 }
 
-interface itemId{
-  itemId: string
-}
 
 interface itemsArray {
   id: string | undefined
@@ -78,21 +80,28 @@ function Bundle() {
     <>
       <p>Complemente o produto:</p>
       <h3>{productContextValue?.selectedItem?.nameComplete}</h3>
-      <p>com:</p>
-      {
-        !loading && data?.productRecommendations.length > 0
-          ? data?.productRecommendations.map(
-            (item: Accessories) => (
-              <div className={`${handles.ButtonBundle}`}>
-              <Button
-                  variation="secondary"
-                  onClick={() => addItem(item.items[0].itemId)}
-                >{item.productName}</Button>
-                </div>
-            ))
-          : ""
+      <p>COMPRANDO JUNTO:</p>
+{
+  !loading && data?.productRecommendations.length > 0
+    ? data.productRecommendations.map((item: Accessories, index: number) => (
+        <div key={index} className={`${handles.ButtonBundle}`} style={{ marginBottom: '1rem' }}>
+          <img
+            src={item.items[0]?.images[0]?.imageUrl}
+            alt={item.productName}
+            style={{ maxWidth: '250px', marginBottom: '0.5rem' }}
+          />
+          <div>{item.productName}</div>
+          <Button
+            variation="secondary"
+            onClick={() => addItem(item.items[0].itemId)}
+          >
+            Adicionar
+          </Button>
+        </div>
+      ))
+    : null
+}
 
-      }
       <Wrapper
         skuItems={items}/>
     </>
