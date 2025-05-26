@@ -18,8 +18,14 @@ interface Accessories {
     images: {
       imageUrl: string
     }[]
+    sellers: {
+      commertialOffer: {
+        Price: number
+      }
+    }[]
   }[]
 }
+
 
 
 interface itemsArray {
@@ -78,9 +84,9 @@ function Bundle() {
 
   return (
     <>
-      <p>Complemente o produto:</p>
+      {/* <p>Complemente o produto:</p>
       <h3>{productContextValue?.selectedItem?.nameComplete}</h3>
-      <p>COMPRANDO JUNTO:</p>
+      <p>COMPRANDO JUNTO:</p> */}
 {
   !loading && data?.productRecommendations.length > 0
     ? data.productRecommendations.map((item: Accessories, index: number) => (
@@ -88,9 +94,10 @@ function Bundle() {
           <img
             src={item.items[0]?.images[0]?.imageUrl}
             alt={item.productName}
-            style={{ maxWidth: '250px', marginBottom: '0.5rem' }}
+            style={{ maxWidth: '100px', marginBottom: '0.5rem' }}
           />
           <div>{item.productName}</div>
+          <p>R$ {item.items[0]?.sellers[0]?.commertialOffer?.Price?.toFixed(2)}</p>
           <Button
             variation="secondary"
             onClick={() => addItem(item.items[0].itemId)}
@@ -101,6 +108,7 @@ function Bundle() {
       ))
     : null
 }
+
 
       <Wrapper
         skuItems={items}/>

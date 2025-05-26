@@ -9,6 +9,11 @@ query getAccessories($productId: ID!) {
       images {
         imageUrl
       }
+      sellers {
+        commertialOffer {
+          Price
+        }
+      }
     }
   }
 }
