@@ -3,7 +3,7 @@
   "name": "bundle",
   "version": "0.0.7",
   "title": "bundle",
-  "description": "App para fazer o banner rolar",
+  "description": "App para fazer o banner rolar!",
   "builders": {
     "react": "3.x",
     "messages": "1.x",
