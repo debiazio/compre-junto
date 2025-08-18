@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+.bg-action-secondary{
+  display: none;
+}
+
 .marqueeContainer {
   overflow: hidden;
   white-space: nowrap;

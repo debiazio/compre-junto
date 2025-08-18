@@ -1,15 +1,13 @@
-import React, { useEffect, useState }  from "react"
-import { useProduct } from 'vtex.product-context'
-import { useQuery } from 'react-apollo'
-import { Button } from 'vtex.styleguide'
-import { Wrapper } from 'vtex.add-to-cart-button'
-import { useCssHandles } from 'vtex.css-handles'
+import React, { useEffect, useState } from "react"
+import { useProduct } from "vtex.product-context"
+import { useQuery } from "react-apollo"
+import { Checkbox } from "vtex.styleguide"
+import { Wrapper } from "vtex.add-to-cart-button"
+import { useCssHandles } from "vtex.css-handles"
 
-import ACCESSORIES from '../graphql/getAccessories.graphql'
+import ACCESSORIES from "../graphql/getAccessories.graphql"
 
-const CSS_HANDLES = [
-  'ButtonBundle'
-] as const
+const CSS_HANDLES = ["ButtonBundle"] as const
 
 interface Accessories {
   productName: string
@@ -26,8 +24,6 @@ interface Accessories {
   }[]
 }
 
-
-
 interface itemsArray {
   id: string | undefined
   quantity: number | undefined
@@ -36,82 +32,80 @@ interface itemsArray {
 
 function Bundle() {
   const productContextValue = useProduct()
-  const [ items, setitems ] = useState<itemsArray[]>()
-  const {loading, data} = useQuery(ACCESSORIES, {
+  const [items, setItems] = useState<itemsArray[]>([])
+  const { loading, data } = useQuery(ACCESSORIES, {
     variables: {
-      productId: "199"
-    }
+      productId: "199", // id do produto base
+    },
   })
 
   const { handles } = useCssHandles(CSS_HANDLES)
 
   useEffect(() => {
-    if(loading) return
+    if (loading) return
+    console.log("productContextValue", productContextValue)
+    console.log("data", data)
 
-    console.log('productContextValue', productContextValue)
-    console.log('data', data)
+    // iniciamos sem o produto principal
+    setItems([])
+  }, [loading, data])
 
-    const initialItem: itemsArray[] = [
-      {
-        id: productContextValue?.selectedItem?.itemId,
-        quantity: productContextValue?.selectedQuantity,
-        seller: "1"
-      }
+  // Verifica se um acessório já está na lista
+  function isChecked(itemId: string) {
+    return items.some((it) => it.id === itemId)
+  }
 
-    ]
-
-
-    setitems(initialItem)
-
-  },[loading, data])
-
-  useEffect(() => {
-
-    console.log('items', items)
-  }, [items])
-
-  function addItem (itemId: string) {
-    const newItem = [
-      {
+  // Marca/desmarca acessório
+  function toggleItem(itemId: string) {
+    if (isChecked(itemId)) {
+      // remove se já estiver
+      setItems((prev) => prev.filter((it) => it.id !== itemId))
+    } else {
+      // adiciona se não estiver
+      const newItem = {
         id: itemId,
         quantity: 1,
-        seller: "1"
+        seller: "1",
       }
-    ]
-
-    setitems(items?.concat(newItem))
+      setItems((prev) => [...prev, newItem])
+    }
   }
 
   return (
     <>
-      {/* <p>Complemente o produto:</p>
-      <h3>{productContextValue?.selectedItem?.nameComplete}</h3>
-      <p>COMPRANDO JUNTO:</p> */}
-{
-  !loading && data?.productRecommendations.length > 0
-    ? data.productRecommendations.map((item: Accessories, index: number) => (
-        <div key={index} className={`${handles.ButtonBundle}`} style={{ marginBottom: '1rem' }}>
-          <img
-            src={item.items[0]?.images[0]?.imageUrl}
-            alt={item.productName}
-            style={{ maxWidth: '100px', marginBottom: '0.5rem' }}
-          />
-          <div>{item.productName}</div>
-          <p>R$ {item.items[0]?.sellers[0]?.commertialOffer?.Price?.toFixed(2)}</p>
-          <Button
-            variation="secondary"
-            onClick={() => addItem(item.items[0].itemId)}
-          >
-            Adicionar
-          </Button>
-        </div>
-      ))
-    : null
-}
+      {!loading && data?.productRecommendations.length > 0
+        ? data.productRecommendations.map(
+            (item: Accessories, index: number) => {
+              const accessory = item.items[0]
+              return (
+                <div
+                  key={index}
+                  className={`${handles.ButtonBundle}`}
+                  style={{ marginBottom: "1rem" }}
+                >
+                  <img
+                    src={accessory?.images[0]?.imageUrl}
+                    alt={item.productName}
+                    style={{ maxWidth: "100px", marginBottom: "0.5rem" }}
+                  />
+                  <div>{item.productName}</div>
+                  <p>
+                    R$ {accessory?.sellers[0]?.commertialOffer?.Price?.toFixed(2)}
+                  </p>
+                  <Checkbox
+                    checked={isChecked(accessory.itemId)}
+                    id={`acc-${accessory.itemId}`}
+                    label="Adicionar acessório"
+                    name={`acc-${accessory.itemId}`}
+                    onChange={() => toggleItem(accessory.itemId)}
+                  />
+                </div>
+              )
+            }
+          )
+        : null}
 
-
-      <Wrapper
-        skuItems={items}/>
+      <Wrapper skuItems={items} />
     </>
   )
 }
