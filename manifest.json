@@ -1,7 +1,7 @@
 {
   "vendor": "madumfm2",
   "name": "bundle",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "title": "bundle",
   "description": "App para fazer o banner rolar!",
   "builders": {
