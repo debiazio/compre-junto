@@ -32,48 +32,43 @@ interface itemsArray {
 
 function Bundle() {
   const productContextValue = useProduct()
+  const productId = productContextValue?.product?.productId
+
   const [items, setItems] = useState<itemsArray[]>([])
   const { loading, data } = useQuery(ACCESSORIES, {
     variables: {
-      productId: "199", // id do produto base
+      productId: "199", // continua fixo para buscar acessórios do 199
     },
+    skip: productId !== "199", // só faz a query se o produto atual for 199
   })
 
   const { handles } = useCssHandles(CSS_HANDLES)
 
   useEffect(() => {
     if (loading) return
-    console.log("productContextValue", productContextValue)
-    console.log("data", data)
-
-    // iniciamos sem o produto principal
-    setItems([])
+    setItems([]) // iniciamos sem o produto principal
   }, [loading, data])
 
-  // Verifica se um acessório já está na lista
   function isChecked(itemId: string) {
     return items.some((it) => it.id === itemId)
   }
 
-  // Marca/desmarca acessório
   function toggleItem(itemId: string) {
     if (isChecked(itemId)) {
-      // remove se já estiver
       setItems((prev) => prev.filter((it) => it.id !== itemId))
     } else {
-      // adiciona se não estiver
-      const newItem = {
-        id: itemId,
-        quantity: 1,
-        seller: "1",
-      }
-      setItems((prev) => [...prev, newItem])
+      setItems((prev) => [...prev, { id: itemId, quantity: 1, seller: "1" }])
     }
+  }
+
+  // Se não for o produto 199, não renderiza nada
+  if (productId !== "199") {
+    return null
   }
 
   return (
     <>
-      {!loading && data?.productRecommendations.length > 0
+      {!loading && data?.productRecommendations?.length > 0
         ? data.productRecommendations.map(
             (item: Accessories, index: number) => {
               const accessory = item.items[0]
@@ -109,5 +104,6 @@ function Bundle() {
     </>
   )
 }
+
 
 export default Bundle
